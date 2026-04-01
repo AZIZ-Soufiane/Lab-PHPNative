@@ -59,7 +59,7 @@
     <script>
         function booksApp() {
             return {
-                books: @json($books ?? []),
+                books: <?php echo json_encode($books ?? [], 15, 512) ?>,
                 search: '',
 
                 get filteredBooks() {
@@ -117,3 +117,4 @@
     </script>
 </body>
 </html>
+<?php /**PATH C:\GitHub\Lab-PHPNative\app\resources\views/books.blade.php ENDPATH**/ ?>

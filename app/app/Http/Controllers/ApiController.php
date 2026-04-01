@@ -15,10 +15,10 @@ class ApiController extends Controller
     {
         $search = request('search');
 
-        $data = $search
+        $books = $search
             ? $this->apiService->searchBooks($search)
             : $this->apiService->getBooks();
 
-        return view('books', compact('data', 'search'));
+        return view('books', compact('books', 'search'));
     }
 }
