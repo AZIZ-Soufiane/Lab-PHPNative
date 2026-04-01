@@ -46,7 +46,7 @@ class ApiService
 
     private function formatBooks(array $rawBooks): array
     {
-        return collect($rawBooks)->map(function ($book) {
+        $formatted = collect($rawBooks)->map(function ($book) {
             return [
                 'key' => $book['key'] ?? uniqid(),
                 'title' => $book['title'] ?? 'Unknown Title',
@@ -57,5 +57,60 @@ class ApiService
                     : null,
             ];
         })->values()->all();
+
+        // If no books found, return default books
+        if (empty($formatted)) {
+            return $this->getDefaultBooks();
+        }
+
+        return $formatted;
+    }
+
+    private function getDefaultBooks(): array
+    {
+        return [
+            [
+                'key' => 'default_1',
+                'title' => 'To Kill a Mockingbird',
+                'author' => 'Harper Lee',
+                'year' => '1960',
+                'coverUrl' => 'https://covers.openlibrary.org/b/id/8238486-M.jpg',
+            ],
+            [
+                'key' => 'default_2',
+                'title' => '1984',
+                'author' => 'George Orwell',
+                'year' => '1949',
+                'coverUrl' => 'https://covers.openlibrary.org/b/id/8235644-M.jpg',
+            ],
+            [
+                'key' => 'default_3',
+                'title' => 'Pride and Prejudice',
+                'author' => 'Jane Austen',
+                'year' => '1813',
+                'coverUrl' => 'https://covers.openlibrary.org/b/id/8235897-M.jpg',
+            ],
+            [
+                'key' => 'default_4',
+                'title' => 'The Great Gatsby',
+                'author' => 'F. Scott Fitzgerald',
+                'year' => '1925',
+                'coverUrl' => 'https://covers.openlibrary.org/b/id/8245010-M.jpg',
+            ],
+            [
+                'key' => 'default_5',
+                'title' => 'Jane Eyre',
+                'author' => 'Charlotte Brontë',
+                'year' => '1847',
+                'coverUrl' => 'https://covers.openlibrary.org/b/id/8251248-M.jpg',
+            ],
+            [
+                'key' => 'default_6',
+                'title' => 'The Catcher in the Rye',
+                'author' => 'J.D. Salinger',
+                'year' => '1951',
+                'coverUrl' => 'https://covers.openlibrary.org/b/id/8241658-M.jpg',
+            ],
+        ];
     }
 }
